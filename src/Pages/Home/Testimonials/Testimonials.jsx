@@ -30,7 +30,7 @@ const Testimonials = () => {
          key={reviews._id}
         
         >
-      <div className="m-24">
+      <div className="  flex flex-col items-center mx-24  my-16">
       <Rating
       style={{ maxWidth: 180 }}
       value={reviews.rating}
