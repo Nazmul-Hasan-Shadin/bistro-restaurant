@@ -16,15 +16,22 @@ const Signup = () => {
         formState: { errors },
       } = useForm()
   
-      const {createUser}= useContext(AuthContext)
-
-
+   const {createUser,handleUpdateProfile}= useContext(AuthContext)
 
       const onSubmit = (data) => {
+        console.log(data)
         createUser(data.email,data.password)
+        
         .then(res=>{
             const loggedUser= res.user;
-            console.log(loggedUser);
+            console.log(loggedUser)
+            handleUpdateProfile(data.name,data.photoURL)
+            .then(res=>{
+                console.log('update successful');
+            })
+            .catch(err=>{
+                console.log(err);
+            })
         })
       }
     
@@ -53,6 +60,17 @@ const Signup = () => {
           <input type="text" name='name' {...register("name", { required: true })} placeholder="Name" className="input input-bordered"  />
           {errors.name && <span className="text-red-600">Name is required</span>}
         </div>
+
+
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Photo URL</span>
+          </label>
+          <input type="text" name='name' {...register("photoURL", { required: true })} placeholder="Name" className="input input-bordered"  />
+          {errors.photoURL && <span className="text-red-600">photoURL is required</span>}
+        </div>
+
+
 
         <div className="form-control">
           <label className="label">
