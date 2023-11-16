@@ -23,6 +23,7 @@ const Signup = () => {
         createUser(data.email,data.password)
         
         .then(res=>{
+          // create user in the database
             const loggedUser= res.user;
             console.log(loggedUser)
             handleUpdateProfile(data.name,data.photoURL)

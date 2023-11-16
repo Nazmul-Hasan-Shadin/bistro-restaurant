@@ -21,7 +21,9 @@ const FoodCard = ({ item }) => {
       const cartItem={
      menuId:_id,
      email:user.email,
-     name
+     name,
+     price,
+     image
       }
 
       axios.post('/carts',cartItem)
