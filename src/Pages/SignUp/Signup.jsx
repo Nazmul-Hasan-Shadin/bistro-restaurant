@@ -5,6 +5,7 @@ import { AuthContext } from "../../Providers/AuthProvider";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
+import SocialLogin from "../../Components/SocialLogin/SocialLogin";
 
 // type Inputs = {
 //   example: string,
@@ -133,8 +134,9 @@ const navigate= useNavigate()
 
       <p className="px-6">
         <small> Already have an account ? <Link to={'/login'}>Login</Link> </small>
-      </p>
 
+      </p>
+    <SocialLogin></SocialLogin>
 
     </div>
   </div>
