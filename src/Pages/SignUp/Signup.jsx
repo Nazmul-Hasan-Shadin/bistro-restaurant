@@ -2,6 +2,9 @@ import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form"
 import { AuthContext } from "../../Providers/AuthProvider";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import Swal from "sweetalert2";
+import { Link, useNavigate } from "react-router-dom";
 
 // type Inputs = {
 //   example: string,
@@ -9,10 +12,13 @@ import { AuthContext } from "../../Providers/AuthProvider";
 // }
 
 const Signup = () => {
+const navigate= useNavigate()
+ const axiosPublic= useAxiosPublic() 
     const {
         register,
         handleSubmit,
         watch,
+        reset,
         formState: { errors },
       } = useForm()
   
@@ -23,7 +29,25 @@ const Signup = () => {
         createUser(data.email,data.password)
         
         .then(res=>{
+          const userInfo={
+            name: data.name,
+            email: data.email
+          }
           // create user in the database
+          axiosPublic.post('/users',userInfo)
+          .then(res=>{
+            if (res.data.insertedId) {
+              reset()
+              Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              navigate('/')
+            }
+          })
             const loggedUser= res.user;
             console.log(loggedUser)
             handleUpdateProfile(data.name,data.photoURL)
@@ -106,6 +130,12 @@ const Signup = () => {
            <input type="submit" value={'sign Up'} className="btn btn-primary"  />
         </div>
       </form>
+
+      <p className="px-6">
+        <small> Already have an account ? <Link to={'/login'}>Login</Link> </small>
+      </p>
+
+
     </div>
   </div>
 </div>
